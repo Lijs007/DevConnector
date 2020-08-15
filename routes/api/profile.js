@@ -8,6 +8,7 @@ const axios = require("axios");
 
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 
 //@route  GET api/profile/me
 //@desc   Get current users profile
@@ -141,6 +142,7 @@ router.get("/user/:user_id", async (req, res) => {
 //@access Private
 router.delete("/", auth, async (req, res) => {
   try {
+    await Post.deleteMany({ user: req.user.id });
     await Profile.findOneAndDelete({ user: req.user.id });
     await User.findOneAndDelete({ _id: req.user.id });
     res.json({ msg: "User deleted" });
@@ -302,7 +304,8 @@ router.delete("/education/:edu_id", auth, async (req, res) => {
 //@route  Get api/profile/github/:user_name
 //@desc   Get profile by user ID
 //@access Public
-router.get("/github/:user_name", async (req, res) => {
+router.get("/github/:username", async (req, res) => {
+  console.log(req.params.username);
   try {
     const uri = encodeURI(
       `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`

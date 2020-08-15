@@ -1,0 +1,5 @@
+{
+  "mongoURI": "mongodb+srv://lijs:L35614726@cluster0.np8aa.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "lijslijs",
+  "githubToken": "22ab9849d2b91c22ab9c228dd179f65b02c99f16"
+}
